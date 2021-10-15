@@ -41,22 +41,34 @@
     </div>
 
     <script>
+      const storageKey = 'value'
+
       const output = document.querySelector('#output')
       const minusBtn = document.querySelector('#btn-minus')
       const plusBtn = document.querySelector('#btn-plus')
       const resetBtn = document.querySelector('#btn-reset')
 
+      try {
+        const value = parseInt(localStorage.getItem(storageKey))
+        output.textContent = value
+      } catch (error) {
+        console.error('Invalid local storage value', error)
+      }
+
       function subtract() {
-        const value = parseInt(output.textContent)
-        output.textContent = value - 1
+        const value = parseInt(output.textContent) - 1
+        localStorage.setItem(storageKey, value.toString())
+        output.textContent = value
       }
 
       function add() {
-        const value = parseInt(output.textContent)
-        output.textContent = value + 1
+        const value = parseInt(output.textContent) + 1
+        localStorage.setItem(storageKey, value.toString())
+        output.textContent = value
       }
 
       function reset() {
+        localStorage.setItem(storageKey, '0')
         output.textContent = 0
       }
 
